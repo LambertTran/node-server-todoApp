@@ -45,7 +45,7 @@ var server = http.createServer(app);
 
 
 /** connect to server */
-	server.listen(port, () => {
+	app.listen(port, () => {
 		console.log('connected to server');
 	});
 
