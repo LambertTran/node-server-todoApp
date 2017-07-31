@@ -3,17 +3,22 @@ const {MongoClient} = require ('mongodb');
 const mongoose= require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
+const http = require('http');
+
 var mongojs = require('mongojs');
 var router  = express.Router();
+var server = http.createServer(app);
+
 
 /** define port and express */
 	var app = express();
-	var port= 3000;
+	var port= process.env.PORT || 3000;
 
 
 // allow cross origin access
 	app.use(function(req, res, next) {
 	  res.header("Access-Control-Allow-Origin", "*");
+	  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
 	  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	  next();
 	});
@@ -40,7 +45,7 @@ var router  = express.Router();
 
 
 /** connect to server */
-	app.listen(port, () => {
+	server.listen(port, () => {
 		console.log('connected to server');
 	});
 
