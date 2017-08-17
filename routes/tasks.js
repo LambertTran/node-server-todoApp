@@ -13,9 +13,12 @@ mongoose.connect('mongodb://alirom93:Lamson123@ds127443.mlab.com:27443/todo_list
 
 /** return all tasks */
 router.get('/tasks', authentication,(req, res) => {
+
+  // find user with coresponding _id
   Task.find({
     creator:req.user._id
-  }).then((task) =>{
+  })
+  .then((task) =>{
     res.status(200).send(task);
   }, (err) => {
     res.status(400).send(task);
@@ -37,12 +40,13 @@ router.get('/tasks', authentication,(req, res) => {
 router.post('/tasks',authentication, (req, res) => {
 
   // create an intant variable
-  var task = new Task ({
+  var newTask = new Task ({
     "title": req.body.title,
     "creator":req.user._id
   });
 
-  task.save().then((task) => {
+  //save new task to database
+  newTask.save().then((task) => {
     res.status(200).send(task);
   },(err)=>{
     res/status(400).send(err);
@@ -62,13 +66,16 @@ router.delete('/tasks&delete=one&id=:id', (req, res, next) => {
 
 
 /** delete all task*/
-router.delete('/tasks&delete=all',(req,res,next) => {
-  db.tasks.remove({},(err,task) => {
-    if (err) {
-      res.send(err)
-    }
-    res.json(task);
-  });
+router.delete('/tasks&delete=all',authentication,(req,res) => {
+  Task.remove({
+    creator:req.user._id
+  })
+  .then((task) => {
+    res.status(200).send(task);
+  },(err) => {
+    res.status(400).send(err);
+  })
+  
 });
 
 // // update tasks
