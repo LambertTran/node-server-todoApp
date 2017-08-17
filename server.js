@@ -31,6 +31,7 @@ var db = mongojs('mongodb://alirom93:Lamson123@ds127443.mlab.com:27443/todo_list
 /** connect to routes */
 var index = require('./routes/index');
 var tasks = require('./routes/tasks');
+var users = require('./routes/users');
 
 
 /** parser incoming data to JSON */

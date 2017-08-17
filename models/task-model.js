@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 
 var Task = mongoose.model('tasks', {
+  creator:{
+    type:String,
+    required:true
+  },
   title: {
     type:String,
     required: true,

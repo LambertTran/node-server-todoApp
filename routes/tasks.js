@@ -5,7 +5,7 @@ const mongoose= require('mongoose');
 
 
 /** Import model */
-var {Task} = require('../models/task');
+var {Task} = require('../models/task-model');
 
 
 /** connect to database server */
