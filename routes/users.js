@@ -32,7 +32,6 @@ router.post('/users',(req,res) => {
   //create an instant of new-user from input
   var input = _.pick(req.body,['email','password']);
   var newUser = new User(input);
-  console.log(input);
 
   //save newUser to data
   newUser.save()
@@ -53,7 +52,6 @@ router.post('/users/login',(req,res) => {
   // get input from user
   var input = _.pick(req.body,['email','password']);
 
-  console.log(input);
   // find corresponding user
   User.findByCredentials(input.email,input.password)
     .then((user) => {

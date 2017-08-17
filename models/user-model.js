@@ -115,19 +115,22 @@ UserSchema.statics.findByCredentials = function(email,password){
 }
 
 
+/** Find user using token */
 UserSchema.statics.findByToken = function(token){
   var user = this;
-  var decoded;
+  var decodedToken;
 
+  // try to decode the token with the key
   try {
-    decoded=jwt.verify(token,'randomKey');
-  } catch(err{
+    decodedToken=jwt.verify(token,'randomKey');
+  }catch(err){
     return Promise.reject();
   }
 
+  // find user with decodedToken
   return user.findOne({
-    '_id':decoded._id,
-    'tokens.access': decoded.access,
+    '_id':decodedToken._id,
+    'tokens.access': decodedToken.access,
     'tokens.token':token
   });
 }
