@@ -1,53 +1,52 @@
 var express = require('express');
 var router  = express.Router();
-var mongojs = require('mongojs');
 const mongoose= require('mongoose');
 
 
 /** Import model */
 var {Task} = require('../models/task-model');
-
+var {authentication} = require('./middleware/authentication');
 
 /** connect to database server */
-var db = mongojs('mongodb://alirom93:Lamson123@ds127443.mlab.com:27443/todo_list',['tasks']);
+mongoose.connect('mongodb://alirom93:Lamson123@ds127443.mlab.com:27443/todo_list',['tasks']);
 
 
 /** return all tasks */
-router.get('/tasks', (req, res, next) => {
-  db.tasks.find((err,tasks) =>{
-    if(err) {
-      res.send(err);
-    }
-    res.json(tasks);
+router.get('/tasks', authentication,(req, res) => {
+  Task.find({
+    creator:req.user._id
+  }).then((task) =>{
+    res.status(200).send(task);
+  }, (err) => {
+    res.status(400).send(task);
   });
-});
-
+})
 
 /** return an task using id from user input */
-router.get('/tasks&id=:id', (req, res, next) => {
-db.tasks.findOne({_id: mongojs.ObjectId(req.params.id)},(err,task) =>{
-  if(err) {
-    res.send(err);
-  }
-  res.json(task);
-  });
-});
+// router.get('/tasks&id=:id', (req, res, next) => {
+// db.tasks.findOne({_id: mongojs.ObjectId(req.params.id)},(err,task) =>{
+//   if(err) {
+//     res.send(err);
+//   }
+//   res.json(task);
+//   });
+// });
 
 
-/** save task from user input */
-router.post('/tasks', (req, res, next) => {
+/** Create new task */
+router.post('/tasks',authentication, (req, res) => {
 
   // create an intant variable
   var task = new Task ({
-    "title": req.body.title
+    "title": req.body.title,
+    "creator":req.user._id
   });
 
-  db.tasks.save(task,(err,task) => {
-    if (err){
-      res.send(err);
-    }
-    res.json(task);
-});
+  task.save().then((task) => {
+    res.status(200).send(task);
+  },(err)=>{
+    res/status(400).send(err);
+  })
 });
 
 
