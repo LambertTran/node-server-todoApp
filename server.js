@@ -4,6 +4,7 @@ const mongoose= require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
 const http = require('http');
+const cors = require('cors');
 
 var mongojs = require('mongojs');
 var router  = express.Router();
@@ -12,16 +13,22 @@ var server = http.createServer(app);
 
 /** define port and express */
 var app = express();
-var port= process.env.PORT || 3000;
+var port= process.env.PORT || 8080;
 
 
 /** allow cross origin access */
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,x-auth");
+//   res.header("Access-Control-Expose-Headers: x-auth");
+//   next();
+// });
+
+app.use(cors({
+  "exposedHeaders" : 'x-auth'
+}));
+
 
 
 /** connect to database server*/
