@@ -25,6 +25,7 @@ var port= process.env.PORT || 8080;
 //   next();
 // });
 
+/** allow custom header expose to client */
 app.use(cors({
   "exposedHeaders" : 'x-auth'
 }));

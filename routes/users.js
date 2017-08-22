@@ -23,7 +23,8 @@ var {User} = require('../models/user-model');
 **===========================================*/
 
 /** connect to database server */
-mongoose.connect('mongodb://alirom93:Lamson123@ds127443.mlab.com:27443/todo_list',['users']);
+const URL= 'mongodb://alirom93:Lamson123@ds127443.mlab.com:27443/todo_list';
+mongoose.connect(URL,['users']);
 
 
 /** create new user */

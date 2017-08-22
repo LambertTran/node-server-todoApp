@@ -1,14 +1,15 @@
 var express = require('express');
 var router  = express.Router();
 const mongoose= require('mongoose');
-
+const mongodb = require('mongodb');
 
 /** Import model */
 var {Task} = require('../models/task-model');
 var {authentication} = require('./middleware/authentication');
 
 /** connect to database server */
-mongoose.connect('mongodb://alirom93:Lamson123@ds127443.mlab.com:27443/todo_list',['tasks']);
+const URL = 'mongodb://alirom93:Lamson123@ds127443.mlab.com:27443/todo_list';
+mongoose.connect(URL,['tasks']);
 
 
 /** return all tasks */
@@ -26,13 +27,17 @@ router.get('/tasks', authentication,(req, res) => {
 })
 
 /** return an task using id from user input */
-// router.get('/tasks&id=:id', (req, res, next) => {
-// db.tasks.findOne({_id: mongojs.ObjectId(req.params.id)},(err,task) =>{
-//   if(err) {
-//     res.send(err);
-//   }
-//   res.json(task);
-//   });
+// router.get('/tasks/:id', authentication, (req, res) => {
+//   Task.findOne({
+//     _id: req.params.id
+//   }).then( (task) =>{
+//       task.aggregate(
+//       [
+//         {$group: {$sum:["expect","finish"] }}
+//       ]
+//       );
+//       res.send(task);
+//     })
 // });
 
 
@@ -55,13 +60,12 @@ router.post('/tasks',authentication, (req, res) => {
 
 
 /** delete a single task with corresponding id */
-router.delete('/tasks&delete=one&id=:id', (req, res, next) => {
-  db.tasks.remove({_id: mongojs.ObjectId(req.params.id)},(err,task) =>{
-    if(err) {
-      res.send(err);
-    }
-    res.json(task);
-  });
+router.delete('/tasks/:id', (req, res, next) => {
+  Task.remove({_id:req.params.id}).then((task) =>{
+    res.status(200).send(task);
+  }, (err) => {
+    res.status(400).send(task);
+  })
 });
 
 

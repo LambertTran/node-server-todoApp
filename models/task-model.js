@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
-
-var Task = mongoose.model('tasks', {
+var Schema = mongoose.Schema;
+var taskSchema = new Schema({
   creator:{
     type:String,
     required:true
@@ -14,7 +14,27 @@ var Task = mongoose.model('tasks', {
   complete:{
     type:Boolean,
     default:false
+  },
+  expect:{
+    type:Number,
+    default:1
+  },
+  finish:{
+    type:Number,
+    default:0.5
+  },
+  efficiency:{
+    type:Number
   }
 });
+
+taskSchema.pre('save',function(next){
+  var task = this;
+  task.efficiency = task.finish / task.expect;
+  next();
+})
+
+var Task = mongoose.model('tasks',taskSchema);
+
 
 module.exports = {Task}
