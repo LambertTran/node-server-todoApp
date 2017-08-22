@@ -62,7 +62,9 @@ router.post('/tasks',authentication, (req, res) => {
 /** delete a single task with corresponding id */
 router.delete('/tasks/:id', (req, res, next) => {
   Task.remove({_id:req.params.id}).then((task) =>{
-    res.status(200).send(task);
+    res.status(200).send({
+      _id:req.params.id
+    });
   }, (err) => {
     res.status(400).send(task);
   })
