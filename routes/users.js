@@ -61,9 +61,9 @@ router.post('/users/login',(req,res) => {
         res.header('x-auth',token).send(user);
       });
     })
-    .catch(err){
+    .catch((err) =>{
       res.status(400).send(err);
-    }
+    })
 })
 
 
