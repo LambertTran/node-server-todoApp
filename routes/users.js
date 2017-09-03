@@ -35,13 +35,14 @@ router.post('/users',(req,res) => {
   var newUser = new User(input);
 
   //save newUser to data
-  newUser.save()
+  User.Validate(newUser.email)
+    .then(newUser.save())
     .then((user) => {
       return user.generateToken();
-    })
+      })
     .then((token) => {
       res.status(200).header('x-auth',token).send(newUser);
-    })
+      })
     .catch((err) => {
       res.status(400).send(err);
     })

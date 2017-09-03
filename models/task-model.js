@@ -1,5 +1,15 @@
+/**===========================================
+                Import package
+**===========================================*/
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+
+
+
+/**===========================================
+              Body of User Model
+**===========================================*/
 var taskSchema = new Schema({
   creator:{
     type:String,
@@ -28,9 +38,12 @@ var taskSchema = new Schema({
   }
 });
 
+/** save efficiency to user database */
 taskSchema.pre('save',function(next){
   var task = this;
-  task.efficiency = task.finish / task.expect;
+  if(task.isModified('finish')){
+    task.efficiency = task.finish / task.expect; 
+  }
   next();
 })
 

@@ -1,7 +1,5 @@
 /**===========================================
-
-                IMPORT PACKAGE
-
+                Import package
 **===========================================*/
 
 // database package
@@ -15,10 +13,11 @@ const jwt = require('jsonwebtoken');
 // modify user returning data
 const _ = require ('lodash');
 
+
+
+
 /**===========================================
-
               Body of User Model
-
 **===========================================*/
 
 /** user model */
@@ -135,6 +134,17 @@ UserSchema.statics.findByToken = function(token){
   });
 }
 
+
+/** Validate new user email */
+UserSchema.statics.Validate = function(email){
+  var User = this;
+  return new Promise((resolve,reject) => {
+    if (User.findOne({email})){
+      return reject();
+    }
+    return resolve();
+  })
+}
 
 
 /** create user model from schema */
