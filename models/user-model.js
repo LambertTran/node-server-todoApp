@@ -97,7 +97,6 @@ UserSchema.statics.findByCredentials = function(email,password){
   return User.findOne({email}).then((user) => {
     // if there is no user, reject access
     if(!user){
-      console.log(yes);
       return Promise.reject();
     }
     // if there is user, compare inputed password with user.password
@@ -136,13 +135,17 @@ UserSchema.statics.findByToken = function(token){
 
 
 /** Validate new user email */
-UserSchema.statics.Validate = function(email){
+UserSchema.statics.Validate = function(newUser){
   var User = this;
-  return new Promise((resolve,reject) => {
-    if (User.findOne({email})){
-      return reject();
+  return User.findOne({email:newUser.email}).then((user) => {
+    if(user){
+    return Promise.reject();
     }
-    return resolve();
+    else {
+    console.log('yes');
+    return Promise.resolve(newUser);
+    }
+  
   })
 }
 

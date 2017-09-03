@@ -15,7 +15,7 @@ const _ = require('lodash');
 /** Import model */
 var {User} = require('../models/user-model');
 
-
+mongoose.Promise = global.Promise;
 /**===========================================
 
               Body of User route
@@ -35,8 +35,8 @@ router.post('/users',(req,res) => {
   var newUser = new User(input);
 
   //save newUser to data
-  User.Validate(newUser.email)
-    .then(newUser.save())
+  User.Validate(newUser)
+    .then(newUser => newUser.save())
     .then((user) => {
       return user.generateToken();
       })
