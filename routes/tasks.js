@@ -9,7 +9,7 @@ var {Task} = require('../models/task-model');
 var {authentication} = require('./middleware/authentication');
 
 /** connect to database server */
-const URL = 'mongodb://alirom93:Lamson123@ds127443.mlab.com:27443/todo_list';
+const URL = 'mongodb://ID:Password@ds127443.mlab.com:27443/todo_list';
 mongoose.connect(URL,['tasks']);
 mongodb.connect(URL,['tasks']);
 
