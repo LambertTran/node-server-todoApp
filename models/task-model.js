@@ -4,12 +4,12 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
-
+var todoDb = require('../db/mongoDb');
 
 /**===========================================
               Body of User Model
 **===========================================*/
+
 var taskSchema = new Schema({
   creator:{
     type:String,
@@ -47,7 +47,7 @@ taskSchema.pre('save',function(next){
   next();
 })
 
-var Task = mongoose.model('tasks',taskSchema);
+var Task = todoDb.model('tasks',taskSchema);
 
 
 module.exports = {Task}

@@ -1,17 +1,11 @@
 var express = require('express');
 var router  = express.Router();
 const mongoose= require('mongoose');
-const mongodb = require('mongodb');
 
 
 /** Import model */
 var {Task} = require('../models/task-model');
 var {authentication} = require('./middleware/authentication');
-
-/** connect to database server */
-const URL = 'mongodb://ID:Password@ds127443.mlab.com:27443/todo_list';
-mongoose.connect(URL,['tasks']);
-mongodb.connect(URL,['tasks']);
 
 /** return all tasks */
 router.get('/tasks', authentication,(req, res) => {

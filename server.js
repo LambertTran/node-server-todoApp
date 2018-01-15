@@ -1,12 +1,9 @@
 const express = require('express');
-const {MongoClient} = require ('mongodb');
-const mongoose= require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
 const http = require('http');
 const cors = require('cors');
 
-var mongojs = require('mongojs');
 var router  = express.Router();
 var server = http.createServer(app);
 
@@ -29,11 +26,6 @@ var port= process.env.PORT || 8080;
 app.use(cors({
   "exposedHeaders" : 'x-auth'
 }));
-
-
-
-/** connect to database server*/
-var db = mongojs('mongodb://alirom93:Lamson123@ds127443.mlab.com:27443/todo_list',['tasks']);
 
 
 /** connect to routes */

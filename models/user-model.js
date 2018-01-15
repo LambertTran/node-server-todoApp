@@ -5,6 +5,7 @@
 // database package
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const todoDb = require('../db/mongoDb');
 
 // hasking password and json-web-token
 const bcrypt = require('bcryptjs');
@@ -12,9 +13,6 @@ const jwt = require('jsonwebtoken');
 
 // modify user returning data
 const _ = require ('lodash');
-
-
-
 
 /**===========================================
               Body of User Model
@@ -151,5 +149,5 @@ UserSchema.statics.Validate = function(newUser){
 
 
 /** create user model from schema */
-var User = mongoose.model('users',UserSchema)
+var User = todoDb.model('users',UserSchema)
 module.exports = {User}

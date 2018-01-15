@@ -22,11 +22,6 @@ mongoose.Promise = global.Promise;
 
 **===========================================*/
 
-/** connect to database server */
-const URL= 'mongodb://ID:Password@ds127443.mlab.com:27443/todo_list';
-mongoose.connect(URL,['users']);
-
-
 /** create new user */
 router.post('/users',(req,res) => {
 
