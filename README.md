@@ -1,4 +1,3 @@
-# node-server-todoApp
-## This is server for todoApp at [link](http://todo-react-redux.s3-website-us-west-1.amazonaws.com/)
-
-## This server serve REST API, where is no UI on server side
+## Server of Todo app
+#### Font-end can be found [here](https://github.com/LambertTran/todo-app-react-redux)
+#### This server serves RESTful APIs, so there is no UI on server side
